@@ -29,41 +29,24 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card mb-2">
-                <div class="card-header">{{ __('Code add') }}</div>
-                @error('book_id')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                @error('title')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                @error('contents')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                @error('code')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                <div class="card-body">
-                    <form class="form-block my-2 my-lg-2" method="POST" action="{{ route('codecreate') }}" >
-                        @csrf
-                        <select class="form-control mr-sm-2 mb-2" name="book_id">
-                            @foreach ($user_books as $user_book)
-                                <option value="{{ $user_book->book->id }}">{{ $user_book->book->title }}</option>
-                            @endforeach
-                        </select>
-                        <input class="form-control mr-sm-2 mb-2" type="text" name="title" placeholder="TITLE" >
-                        <textarea class="form-control mr-sm-2 mb-2" type="text" rows="3" name="contents" placeholder="CONTENTS"></textarea>
-                        <textarea class="form-control mr-sm-2 mb-2" type="text" rows="10" name="code" placeholder="CODE"></textarea>
-                        <button class="btn btn-outline-success my-2 my-sm-2" type="submit">Add</button>
-                    </form>
-                </div>
-            </div>
             <div class="card">
-                <div class="card-header">{{ __('Code list') }}</div>
+                <div class="card-header">{{ __('Code details') }}</div>
                 <ul class="list-group list-group-flush">
-                    @foreach ($codes as $code)
-                        <li class="list-group-item"><a href="{{ route('codeshow', $code->id) }}" class="card-text">{{ $code->title }}</a></li>
-                    @endforeach
+                    <li class="list-group-item">
+                        <h6 class="card-title">【Code title】</h6>
+                        {{ $code->title }}
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="card-title">【Code contents】</h6>
+                        {{ $code->contents }}
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="card-title">【Book title】</h6>
+                        {{ $code->code_book->book->title }}
+                    </li>
+                    <li class="list-group-item">
+                        <pre class="prettyprint linenums"><code>{{ $code->code }}</code></pre>
+                    </li>
                 </ul>
             </div>
         </div>
